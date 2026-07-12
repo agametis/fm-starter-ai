@@ -1,0 +1,161 @@
+* {
+	box-sizing: border-box;
+}
+
+:root {
+	color: #0f172a;
+	background: #f8fafc;
+	font-family:
+		Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+		"Segoe UI", sans-serif;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+	min-width: 20rem;
+	min-height: 100vh;
+	margin: 0;
+}
+
+#root {
+	min-height: 100vh;
+	display: grid;
+	place-items: center;
+	padding: clamp(1rem, 4vw, 2.5rem);
+}
+
+.app-shell {
+	width: min(44rem, 100%);
+	display: grid;
+	gap: 1.5rem;
+}
+
+header {
+	display: grid;
+	gap: 0.35rem;
+}
+
+h1,
+p {
+	margin: 0;
+}
+
+.eyebrow {
+	color: #2563eb;
+	font-size: 0.78rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.status {
+	color: #475569;
+}
+
+.card {
+	display: grid;
+	gap: 0.85rem;
+	padding: 1.25rem;
+	border: 1px solid #cbd5e1;
+	border-radius: 0.9rem;
+	background: #ffffff;
+	box-shadow: 0 0.75rem 2rem rgb(15 23 42 / 8%);
+}
+
+label {
+	font-weight: 650;
+}
+
+textarea {
+	min-height: 8rem;
+	resize: vertical;
+	padding: 0.75rem;
+	border: 1px solid #94a3b8;
+	border-radius: 0.55rem;
+	color: inherit;
+	font: inherit;
+}
+
+textarea:focus-visible,
+button:focus-visible {
+	outline: 3px solid rgb(37 99 235 / 35%);
+	outline-offset: 2px;
+}
+
+.actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.65rem;
+}
+
+button {
+	padding: 0.65rem 0.9rem;
+	border: 0;
+	border-radius: 0.55rem;
+	background: #1d4ed8;
+	color: #ffffff;
+	cursor: pointer;
+	font: inherit;
+	font-weight: 650;
+}
+
+button:hover {
+	background: #1e40af;
+}
+
+.dirty-state {
+	color: #334155;
+	font-size: 0.92rem;
+}
+
+.error-message {
+	padding: 0.75rem 1rem;
+	border: 1px solid #fca5a5;
+	border-radius: 0.55rem;
+	background: #fef2f2;
+	color: #991b1b;
+}
+
+.mock-request {
+	display: grid;
+	gap: 0.75rem;
+	padding: 1.25rem;
+	border: 1px solid #fbbf24;
+	border-radius: 0.9rem;
+	background: #fffbeb;
+}
+
+.mock-request h2,
+.mock-request p {
+	margin: 0;
+}
+
+.mock-request h2 {
+	font-size: 1.15rem;
+}
+
+.mock-request code {
+	font-weight: 650;
+}
+
+.mock-request pre {
+	max-width: 100%;
+	margin: 0;
+	padding: 0.85rem;
+	overflow: auto;
+	border-radius: 0.55rem;
+	background: #1e293b;
+	color: #f8fafc;
+	font:
+		0.86rem / 1.5 ui-monospace,
+		SFMono-Regular,
+		Menlo,
+		Monaco,
+		Consolas,
+		monospace;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
