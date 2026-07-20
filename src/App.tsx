@@ -58,8 +58,8 @@ function App() {
 					request === "data"
 						? "FileMaker is processing the current input data..."
 						: request === "state"
-								? "FileMaker is processing the current widget state..."
-								: "FileMaker is processing the save...",
+							? "FileMaker is processing the current widget state..."
+							: "FileMaker is processing the save...",
 				);
 				setStatus("processing");
 			},
@@ -114,7 +114,7 @@ function App() {
 						}
 					}}
 				/>
-					<div className="actions">
+				<div className="actions">
 					<button type="button" onClick={() => void window.fmWidget?.refresh()}>
 						Refresh
 					</button>
@@ -156,7 +156,9 @@ function App() {
 							<pre>{JSON.stringify(mockRequest.parameter, null, 2)}</pre>
 						</>
 					) : (
-						<p>Use Save, Report Data, or Report State to preview its FM payload.</p>
+						<p>
+							Use Save, Report Data, or Report State to preview its FM payload.
+						</p>
 					)}
 				</section>
 			)}

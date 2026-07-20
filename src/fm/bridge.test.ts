@@ -111,10 +111,7 @@ describe("FM processing feedback", () => {
 			script: "fmWidget_handleEvent",
 			parameter: { data: { message: "Unsaved input" } },
 		});
-		expect(callbacks.onRequestSuccess).toHaveBeenCalledWith(
-			"event",
-			"Saved",
-		);
+		expect(callbacks.onRequestSuccess).toHaveBeenCalledWith("event", "Saved");
 	});
 
 	it("reports an FM processing failure to the interface", async () => {
