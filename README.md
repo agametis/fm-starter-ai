@@ -4,6 +4,20 @@
 
 An AI-assisted React and TypeScript template for building one interactive widget for a FileMaker Web Viewer.
 
+## Quick start
+
+Install the general `aga-fm-start` skill globally:
+
+```bash
+npx skills add agametis/fm-starter-ai --skill aga-fm-start -g
+```
+
+Then open your AI coding environment, choose any agent, and send this prompt:
+
+```text
+Use the aga-fm-start skill to create a FileMaker Web Viewer widget.
+```
+
 ## What the template provides
 
 - React 19, TypeScript, and Vite
@@ -25,13 +39,7 @@ The builder keeps React, TypeScript, and Vite as the foundation. It recommends a
 
 ## Create a project
 
-Install the portable `aga-fm-start` skill globally from this repository:
-
-```bash
-npx skills add agametis/fm-starter-ai --skill aga-fm-start -g
-```
-
-Then ask your agent to use it. The skill runs:
+The global installation command is listed in the [Quick start](#quick-start). Then ask your agent to use the skill. The skill runs:
 
 ```bash
 npx @agametis/create-app-for-fm@latest ai my-widget
@@ -116,6 +124,20 @@ Configuration lives in `fm/fmConfig.js`. `$` means a local FileMaker file. The w
 
 Eine KI-gestützte React- und TypeScript-Vorlage zur Entwicklung eines interaktiven Widgets für einen FileMaker Web Viewer.
 
+## Schnellstart
+
+Installiere den allgemeinen Skill `aga-fm-start` global:
+
+```bash
+npx skills add agametis/fm-starter-ai --skill aga-fm-start -g
+```
+
+Öffne anschließend eine KI Programmierumgebung deiner Wahl, wähle einen beliebigen Agenten und sende diesen Prompt:
+
+```text
+Verwende den Skill `aga-fm-start`, um ein FileMaker-Web-Viewer-Widget zu erstellen.
+```
+
 ## Funktionen der Vorlage
 
 - React 19, TypeScript und Vite
@@ -137,23 +159,17 @@ React, TypeScript und Vite bleiben immer die Grundlage. Weitere Bibliotheken wer
 
 ## Projekt erstellen
 
-Installieren Sie den portablen Skill `aga-fm-start` global aus diesem Repository:
-
-```bash
-npx skills add agametis/fm-starter-ai --skill aga-fm-start -g
-```
-
-Bitten Sie anschließend Ihren Agenten, den Skill zu verwenden. Er führt folgenden Befehl aus:
+Der globale Installationsbefehl steht im [Schnellstart](#schnellstart). Der Skill führt folgenden Befehl aus:
 
 ```bash
 npx @agametis/create-app-for-fm@latest ai mein-widget
 ```
 
-Der Befehl kann auch direkt ausgeführt werden. Öffnen Sie anschließend den erzeugten Ordner in Ihrem Agent-fähigen Editor und starten Sie den Skill `aga-fm-widget`.
+Du kannst den Befehl auch direkt ausführen. Öffne anschließend den erzeugten Ordner in deinem Agent-fähigen Editor und starte den Skill `aga-fm-widget`.
 
 ## Geführten Widget-Workflow starten
 
-Der Builder nennt zunächst alle benötigten Angaben und bietet Fortfahren oder Abbrechen an. Bereiten Sie Folgendes vor:
+Der Builder nennt zunächst alle benötigten Angaben und bietet Fortfahren oder Abbrechen an. Halte Folgendes bereit:
 
 1. Eine kurze Beschreibung des Widgets
 2. Einen Projektnamen
@@ -164,19 +180,19 @@ Der Skill stellt immer nur eine Frage, empfiehlt den kleinsten geeigneten Stack,
 
 ## Entwicklung
 
-Falls noch nicht geschehen, installieren Sie die Abhängigkeiten:
+Falls noch nicht geschehen, installiere die Abhängigkeiten:
 
 ```bash
 npm install
 ```
 
-Starten Sie den Entwicklungsserver:
+Starte den Entwicklungsserver:
 
 ```bash
 npm run dev
 ```
 
-Aktivieren Sie die Beispieldaten aus `src/sampleData.ts` mit dem URL-Parameter `data=test`, zum Beispiel:
+Aktiviere die Beispieldaten aus `src/sampleData.ts` mit dem URL-Parameter `data=test`, zum Beispiel:
 
 ```text
 http://localhost:5173/?data=test
