@@ -9,7 +9,7 @@ An AI-assisted React and TypeScript template for building one interactive widget
 Install the general `aga-fm-start` skill globally:
 
 ```bash
-npx skills add agametis/fm-starter-ai --skill aga-fm-start -g
+npx skills@latest add agametis/fm-starter-ai --skill aga-fm-start -g
 ```
 
 Then open your AI coding environment, choose any agent, and send this prompt:
@@ -129,8 +129,21 @@ Eine KI-gestützte React- und TypeScript-Vorlage zur Entwicklung eines interakti
 Installiere den allgemeinen Skill `aga-fm-start` global:
 
 ```bash
-npx skills add agametis/fm-starter-ai --skill aga-fm-start -g
+npx skills@latest add agametis/fm-starter-ai --skill aga-fm-start -g
 ```
+
+oder
+
+```bash
+npx skills@latest add agametis/fm-starter-ai \
+  --skill aga-fm-start \
+  --agent pi \
+  --agent codex \
+  --agent claude-code \
+  --yes
+```
+
+für spezifische Agenten.
 
 Öffne anschließend eine KI Programmierumgebung deiner Wahl, wähle einen beliebigen Agenten und sende diesen Prompt:
 
