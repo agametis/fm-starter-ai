@@ -48,7 +48,8 @@ In the user's language, briefly explain that the project provides:
 - React, TypeScript, and Vite
 - a single-file FileMaker Web Viewer build
 - `fm-gofer` and a stable FM bridge
-- explicit `data=test` URL-controlled mock mode
+- explicit `data=test` URL-controlled mock mode that is available only during development
+- a production build check that prevents the sample-data fixture from entering `dist/index.html`
 - FileMaker upload tooling
 - the project-local `aga-fm-widget` skill
 

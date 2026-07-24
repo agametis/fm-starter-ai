@@ -78,9 +78,9 @@ Enable the fixture from `src/sampleData.ts` by adding `data=test` to the display
 http://localhost:5173/?data=test
 ```
 
-Without that exact URL parameter, the widget communicates with FileMaker. It never silently falls back to sample data. In mock mode, Report Data and Report State show the target FM script and parameter below the controls, while the normal information area may still report that FileMaker is unavailable.
+Without that exact URL parameter, the widget communicates with FileMaker. It never silently falls back to sample data. Mock mode is development-only: production builds disable it and exclude `src/sampleData.ts` from the generated `dist/index.html`. In mock mode, Report Data and Report State show the target FM script and parameter below the controls, while the normal information area may still report that FileMaker is unavailable.
 
-`index.html` declares UTF-8. For WebDirect, the build also uses Vite 8's supported Terser minifier with `terserOptions.format.ascii_only`. This escapes umlauts in compiled JavaScript labels such as `Löschen`, avoiding WebDirect data-URL decoding problems. The build finishes with an ASCII-only regression check.
+`index.html` declares UTF-8. For WebDirect, the build also uses Vite 8's supported Terser minifier with `terserOptions.format.ascii_only`. This escapes umlauts in compiled JavaScript labels such as `Löschen`, avoiding WebDirect data-URL decoding problems. The build finishes with regression checks for ASCII-only output and the absence of the sample-data module from the production HTML.
 
 ## Stable bridge contract
 
@@ -211,9 +211,9 @@ Aktiviere die Beispieldaten aus `src/sampleData.ts` mit dem URL-Parameter `data=
 http://localhost:5173/?data=test
 ```
 
-Ohne diesen exakten URL-Parameter kommuniziert das Widget mit FileMaker. Beispieldaten werden niemals stillschweigend als Ersatz verwendet. Im Mock-Modus zeigen Report Data und Report State das FM-Zielscript und den Parameter unterhalb der Bedienelemente; der normale Infobereich darf weiterhin melden, dass FileMaker nicht verfügbar ist.
+Ohne diesen exakten URL-Parameter kommuniziert das Widget mit FileMaker. Beispieldaten werden niemals stillschweigend als Ersatz verwendet. Der Mock-Modus ist ausschließlich für die Entwicklung verfügbar: Produktions-Builds deaktivieren ihn und schließen `src/sampleData.ts` aus der erzeugten Datei `dist/index.html` aus. Im Mock-Modus zeigen Report Data und Report State das FM-Zielscript und den Parameter unterhalb der Bedienelemente; der normale Infobereich darf weiterhin melden, dass FileMaker nicht verfügbar ist.
 
-`index.html` deklariert UTF-8. Für WebDirect verwendet der Build zusätzlich den von Vite 8 unterstützten Terser-Minifier mit `terserOptions.format.ascii_only`. Dadurch werden Umlaute in kompilierten JavaScript-Beschriftungen wie `Löschen` escaped und Probleme mit der Data-URL-Dekodierung vermieden. Am Ende des Builds läuft eine ASCII-Regressionsprüfung.
+`index.html` deklariert UTF-8. Für WebDirect verwendet der Build zusätzlich den von Vite 8 unterstützten Terser-Minifier mit `terserOptions.format.ascii_only`. Dadurch werden Umlaute in kompilierten JavaScript-Beschriftungen wie `Löschen` escaped und Probleme mit der Data-URL-Dekodierung vermieden. Am Ende des Builds prüfen Regressionstests sowohl die reine ASCII-Ausgabe als auch, dass das Beispieldatenmodul nicht im Produktions-HTML enthalten ist.
 
 ## Fester Bridge-Vertrag
 

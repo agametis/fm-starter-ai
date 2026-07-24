@@ -101,7 +101,9 @@ Personalize all visible starter identity:
 
 Keep `$` as `fmConfig.server` unless the user said the file is hosted. Keep the fixed bridge APIs and FM script names in English.
 
-Use the explicit `data=test` URL parameter for the approved representative fixture. Without that exact parameter, the widget must use the FM bridge and never silently fall back to mock data. In mock mode, show the target FM script and business parameter for Report Data and Report State below the widget controls.
+Use the explicit `data=test` URL parameter for the approved representative fixture. Mock mode and its fixture are development-only. Without that exact parameter, or in any production build, the widget must use the FM bridge and never silently fall back to mock data. Load the fixture behind an `import.meta.env.DEV` guard with a dynamic import; never statically import sample data into the application graph. In mock mode, show the target FM script and business parameter for Report Data and Report State below the widget controls.
+
+Preserve the production build check that fails if the sample-data module marker appears in `dist/index.html`. When replacing or restructuring `src/sampleData.ts`, keep an equivalent marker-based regression check. A production build is not acceptable unless the representative fixture and its marker are absent from the final HTML.
 
 Preserve the Terser `ascii_only` production setting and the build encoding check. WebDirect may corrupt literal umlauts in compiled button labels even when input values and standard browsers appear correct.
 
@@ -116,7 +118,7 @@ Always run:
 1. TypeScript type-check
 2. ESLint
 3. Targeted automated tests for meaningful logic
-4. Production build
+4. Production build, including confirmation that `dist/index.html` contains neither the sample-data marker nor representative fixture values
 5. IDE or language-server diagnostics
 
 Also provide a short manual FM checklist covering Web Viewer readiness, load/refresh, events or saving, error behavior, and dirty-state reporting when applicable.

@@ -1,6 +1,9 @@
 import type { WidgetPayload } from "./fm/types";
 
-export const samplePayload: WidgetPayload = {
+export const samplePayload: WidgetPayload & {
+	__sampleDataModule: true;
+} = {
+	__sampleDataModule: true,
 	meta: {
 		title: "FM Widget Starter (Test Mode)",
 	},

@@ -23,4 +23,12 @@ if (!/L\\(?:x[fF]6|u00[fF]6)schen/.test(html)) {
 	throw new Error('The "Löschen" WebDirect encoding regression check failed.');
 }
 
-console.log("WebDirect encoding check passed: output is ASCII-only.");
+if (html.includes("__sampleDataModule")) {
+	throw new Error(
+		"The production build contains the development sample data module.",
+	);
+}
+
+console.log(
+	"Production build checks passed: output is ASCII-only and excludes sample data.",
+);

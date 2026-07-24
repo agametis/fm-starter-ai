@@ -1,6 +1,5 @@
 import FMGofer from "fm-gofer";
 
-import { samplePayload } from "../sampleData";
 import type { WidgetPayload } from "./types";
 
 const FM_SCRIPTS = {
@@ -46,7 +45,9 @@ declare global {
 }
 
 export function isMockMode(search = window.location.search): boolean {
-	return new URLSearchParams(search).get("data") === "test";
+	return (
+		import.meta.env.DEV && new URLSearchParams(search).get("data") === "test"
+	);
 }
 
 export function parseWidgetPayload(
@@ -86,9 +87,10 @@ export function createDirtyStatePayload(dirty: boolean): string {
 	return JSON.stringify({ dirty });
 }
 
-function fetchWidgetPayload(): Promise<WidgetPayload> {
-	if (isMockMode()) {
-		return Promise.resolve(samplePayload);
+async function fetchWidgetPayload(): Promise<WidgetPayload> {
+	if (import.meta.env.DEV && isMockMode()) {
+		const { samplePayload } = await import("../sampleData");
+		return samplePayload;
 	}
 
 	return FMGofer.PerformScript(FM_SCRIPTS.getData).json<WidgetPayload>();
