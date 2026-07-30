@@ -1,5 +1,8 @@
 # FileMaker integration contract
 
+This file defines the contract. For the actual script steps inside each script, see
+[fm-scripts.md](fm-scripts.md).
+
 Use these exact, English script names:
 
 - `fmWidget_getData`

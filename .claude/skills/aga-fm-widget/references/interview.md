@@ -45,7 +45,7 @@ Ask what the widget should show after an event or save: success, reset, reload, 
 
 1. Identify the essential display, input, validation, loading, empty, error, and success states.
 2. Surface at most three feature ideas revealed by the JSON; ask before adding any.
-3. Read the stack rubric and recommend the smallest suitable dependencies.
+3. Read [stack-rubric.md](stack-rubric.md) and start from its archetype table. Recommend the smallest suitable dependencies, and name the row you are deviating from if you propose more.
 4. Obtain explicit dependency approval.
 
 ## Stage E — Artifacts and acceptance

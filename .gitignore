@@ -4,9 +4,9 @@ node_modules/
 # Production builds
 dist/
 build/
-
-
 prep/
+
+.claude/settings.json
 
 # Environment variables
 .env

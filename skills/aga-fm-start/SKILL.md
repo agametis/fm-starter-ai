@@ -51,7 +51,7 @@ In the user's language, briefly explain that the project provides:
 - explicit `data=test` URL-controlled mock mode that is available only during development
 - a production build check that prevents the sample-data fixture from entering `dist/index.html`
 - FileMaker upload tooling
-- the project-local `aga-fm-widget` skill
+- the project-local `aga-fm-widget` skill, plus `AGENTS.md` and `CLAUDE.md` so any agent finds it
 
 Mention the four inputs the builder will eventually need:
 
@@ -64,6 +64,29 @@ Mention the four inputs the builder will eventually need:
 
 Ask whether the user wants to start the guided widget workflow now.
 
-- If the host can switch to or reload the generated project, do so and invoke `aga-fm-widget`.
-- Otherwise, give exact instructions to open the generated folder and ask the new agent session to use `aga-fm-widget`.
-- Do not pretend a newly downloaded project skill is active when the host has not discovered it.
+The generated project ships the builder at a fixed path:
+
+```text
+.claude/skills/aga-fm-widget/SKILL.md
+```
+
+Discovery works through three layers, so the workflow starts on any host:
+
+- Hosts that read `.claude/skills/` register the skill directly and can invoke `/aga-fm-widget`.
+  `.agents/skills` is a symlink to the same directory, which covers Codex, Cline, Warp, Zed, Amp,
+  and Replit.
+- `AGENTS.md` and `CLAUDE.md` in the project root tell any agent to read the canonical file
+  before building or changing the widget.
+- As a direct fallback, the user can say:
+  *read `.claude/skills/aga-fm-widget/SKILL.md` and follow it*.
+
+If a host does not resolve symlinked skill directories, the fallback sentence still works.
+
+Then:
+
+- If the host can switch to or reload the generated project, do so and start `aga-fm-widget`.
+- Otherwise, tell the user to open the generated folder in their agent-enabled editor and give
+  them the exact sentence from the fallback above.
+
+Never claim the skill is already active in the current session when the host has not registered
+it. Name the path instead — the path always works.

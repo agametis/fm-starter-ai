@@ -30,6 +30,20 @@ Use the aga-fm-start skill to create a FileMaker Web Viewer widget.
 
 The builder keeps React, TypeScript, and Vite as the foundation. It recommends additional libraries only when the widget requirements justify them.
 
+## How agents find the builder
+
+`.claude/skills/` is the single source for this project's skills. Three layers make it reachable from any agent, so you never have to install anything into the project:
+
+- Hosts that read `.claude/skills/` register `aga-fm-widget` directly and offer `/aga-fm-widget`. `.agents/skills` is a **symlink** to the same directory, covering Codex, Cline, Warp, Zed, Amp, and Replit. Because the whole directory is linked, any skill you add appears in both without further work. Edit only the files under `.claude/skills/`.
+- `AGENTS.md` and `CLAUDE.md` in the project root tell any agent to read the canonical file before building or changing the widget.
+- If neither applies, say: *read `.claude/skills/aga-fm-widget/SKILL.md` and follow it*. The path always works.
+
+Because `.agents/skills` is a symlink, `git config core.symlinks` must be enabled on Windows. Without it Git writes a plain text file containing the link target and that path stops working — `.claude/skills/` and the fallback sentence are unaffected.
+
+The top-level `skills/aga-fm-start/` is separate. It is the standalone skill installed globally with the `skills` package, as shown in the [Quick start](#quick-start), and it stays outside `.claude/skills/` because it scaffolds new projects rather than building widgets inside one.
+
+`AGENTS.md` also repeats the fixed FileMaker script names and the bridge API, so an agent that never opens the skill still has the contract.
+
 ## Requirements
 
 - Node.js 24 or newer
@@ -45,7 +59,7 @@ The global installation command is listed in the [Quick start](#quick-start). Th
 npx @agametis/create-app-for-fm@latest ai my-widget
 ```
 
-You can also run this command directly. Open the generated folder in your agent-enabled editor, then invoke or ask for the `aga-fm-widget` skill.
+You can also run this command directly. Open the generated folder in your agent-enabled editor, then start the builder as described in [How agents find the builder](#how-agents-find-the-builder).
 
 ## Start the guided widget workflow
 
@@ -80,7 +94,13 @@ http://localhost:5173/?data=test
 
 Without that exact URL parameter, the widget communicates with FileMaker. It never silently falls back to sample data. Mock mode is development-only: production builds disable it and exclude `src/sampleData.ts` from the generated `dist/index.html`. In mock mode, Report Data and Report State show the target FM script and parameter below the controls, while the normal information area may still report that FileMaker is unavailable.
 
-`index.html` declares UTF-8. For WebDirect, the build also uses Vite 8's supported Terser minifier with `terserOptions.format.ascii_only`. This escapes umlauts in compiled JavaScript labels such as `Löschen`, avoiding WebDirect data-URL decoding problems. The build finishes with regression checks for ASCII-only output and the absence of the sample-data module from the production HTML.
+`index.html` declares UTF-8. For WebDirect, the build also uses Vite 8's supported Terser minifier with `terserOptions.format.ascii_only`. This escapes umlauts in compiled JavaScript labels such as `Löschen`, avoiding WebDirect data-URL decoding problems.
+
+Two mechanisms keep a production build honest.
+
+The `forbid-dev-only-modules` plugin in `vite.config.ts` fails the build if `src/sampleData.ts` contributes any code to the bundle. It inspects the Rollup module graph, so it holds for **any** fixture shape — including data made only of numbers or booleans, which no text search would catch. A module that is present but fully tree-shaken is allowed, since that is the expected result of the dynamic import behind `import.meta.env.DEV`.
+
+`scripts/verify-build-encoding.js` then checks the output: it must be pure ASCII, the sample-data marker must be absent, and any non-ASCII text in your own source must appear escaped rather than having been dropped. The last check reads your source instead of asserting a fixed label, so it keeps working after you replace the demo UI. The marker check is only a text-level second line of defence — the plugin is the authoritative one.
 
 ## Stable bridge contract
 
@@ -163,6 +183,20 @@ Verwende den Skill `aga-fm-start`, um ein FileMaker-Web-Viewer-Widget zu erstell
 
 React, TypeScript und Vite bleiben immer die Grundlage. Weitere Bibliotheken werden nur empfohlen, wenn die Anforderungen des Widgets sie rechtfertigen.
 
+## Wie Agenten den Builder finden
+
+`.claude/skills/` ist die einzige Quelle für die Skills dieses Projekts. Drei Ebenen machen sie für jeden Agenten erreichbar, ohne dass im Projekt etwas installiert werden muss:
+
+- Hosts, die `.claude/skills/` lesen, registrieren `aga-fm-widget` direkt und bieten `/aga-fm-widget` an. `.agents/skills` ist ein **Symlink** auf dasselbe Verzeichnis und deckt Codex, Cline, Warp, Zed, Amp und Replit ab. Da das gesamte Verzeichnis verlinkt ist, erscheint jeder neue Skill automatisch in beiden Pfaden. Bearbeite ausschließlich die Dateien unter `.claude/skills/`.
+- `AGENTS.md` und `CLAUDE.md` im Projektstamm weisen jeden Agenten an, die maßgebliche Datei zu lesen, bevor er das Widget erstellt oder ändert.
+- Falls beides nicht greift, genügt der Satz: *Lies `.claude/skills/aga-fm-widget/SKILL.md` und folge der Datei.* Der Pfad funktioniert immer.
+
+Da `.agents/skills` ein Symlink ist, muss unter Windows `git config core.symlinks` aktiviert sein. Andernfalls schreibt Git eine einfache Textdatei mit dem Linkziel, und dieser Pfad funktioniert nicht mehr. `.claude/skills/` und der Ersatzsatz bleiben davon unberührt.
+
+Der Skill `skills/aga-fm-start/` auf oberster Ebene ist davon getrennt. Er wird wie im [Schnellstart](#schnellstart) beschrieben global mit dem Paket `skills` installiert und liegt bewusst außerhalb von `.claude/skills/`, weil er neue Projekte erzeugt und nicht Widgets innerhalb eines Projekts baut.
+
+`AGENTS.md` wiederholt außerdem die festen FileMaker-Scriptnamen und die Bridge-API. So kennt auch ein Agent den Vertrag, der den Skill nie öffnet.
+
 ## Voraussetzungen
 
 - Node.js 24 oder neuer
@@ -178,7 +212,7 @@ Der globale Installationsbefehl steht im [Schnellstart](#schnellstart). Der Skil
 npx @agametis/create-app-for-fm@latest ai mein-widget
 ```
 
-Du kannst den Befehl auch direkt ausführen. Öffne anschließend den erzeugten Ordner in deinem Agent-fähigen Editor und starte den Skill `aga-fm-widget`.
+Du kannst den Befehl auch direkt ausführen. Öffne anschließend den erzeugten Ordner in deinem Agent-fähigen Editor und starte den Builder wie unter [Wie Agenten den Builder finden](#wie-agenten-den-builder-finden) beschrieben.
 
 ## Geführten Widget-Workflow starten
 
@@ -213,7 +247,13 @@ http://localhost:5173/?data=test
 
 Ohne diesen exakten URL-Parameter kommuniziert das Widget mit FileMaker. Beispieldaten werden niemals stillschweigend als Ersatz verwendet. Der Mock-Modus ist ausschließlich für die Entwicklung verfügbar: Produktions-Builds deaktivieren ihn und schließen `src/sampleData.ts` aus der erzeugten Datei `dist/index.html` aus. Im Mock-Modus zeigen Report Data und Report State das FM-Zielscript und den Parameter unterhalb der Bedienelemente; der normale Infobereich darf weiterhin melden, dass FileMaker nicht verfügbar ist.
 
-`index.html` deklariert UTF-8. Für WebDirect verwendet der Build zusätzlich den von Vite 8 unterstützten Terser-Minifier mit `terserOptions.format.ascii_only`. Dadurch werden Umlaute in kompilierten JavaScript-Beschriftungen wie `Löschen` escaped und Probleme mit der Data-URL-Dekodierung vermieden. Am Ende des Builds prüfen Regressionstests sowohl die reine ASCII-Ausgabe als auch, dass das Beispieldatenmodul nicht im Produktions-HTML enthalten ist.
+`index.html` deklariert UTF-8. Für WebDirect verwendet der Build zusätzlich den von Vite 8 unterstützten Terser-Minifier mit `terserOptions.format.ascii_only`. Dadurch werden Umlaute in kompilierten JavaScript-Beschriftungen wie `Löschen` escaped und Probleme mit der Data-URL-Dekodierung vermieden.
+
+Zwei Mechanismen sichern den Produktions-Build ab.
+
+Das Plugin `forbid-dev-only-modules` in `vite.config.ts` lässt den Build fehlschlagen, wenn `src/sampleData.ts` Code zum Bundle beiträgt. Es prüft den Rollup-Modulgraphen und funktioniert daher für **jede** Struktur der Beispieldaten — auch für Daten, die nur aus Zahlen oder Booleschen Werten bestehen und die keine Textsuche finden würde. Ein Modul, das enthalten, aber vollständig entfernt wurde, ist erlaubt: Genau das ist das erwartete Ergebnis des dynamischen Imports hinter `import.meta.env.DEV`.
+
+Anschließend prüft `scripts/verify-build-encoding.js` die Ausgabe: Sie muss reines ASCII sein, der Marker der Beispieldaten darf nicht enthalten sein, und nicht-ASCII-Text aus dem eigenen Quellcode muss escaped erscheinen, statt verloren zu gehen. Die letzte Prüfung liest den Quellcode, statt eine feste Beschriftung zu erwarten, und funktioniert deshalb weiter, nachdem die Demo-Oberfläche ersetzt wurde. Die Marker-Prüfung ist nur eine zusätzliche Absicherung auf Textebene — maßgeblich ist das Plugin.
 
 ## Fester Bridge-Vertrag
 
