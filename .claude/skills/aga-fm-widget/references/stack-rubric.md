@@ -21,12 +21,18 @@ Start from this table, then justify any deviation. "Nothing" means plain React w
 | Form up to roughly ten flat fields | Nothing — `useState` and explicit validation | — |
 | Form with nested data, arrays, dynamic sections, or repeated validation | A form library | — |
 | Any amount of styling that stays project-specific | Existing CSS | the design system argument below applies |
+| Standard UI icons | `lucide-react` | never hand-author or copy SVG icon markup |
 | Several complex accessible controls: dialog, combobox, menu, tabs, date picker | Accessible primitives | — |
 | One difficult control | A focused primitive for that control only | never a full visual system |
 | Any single FM request, however slow | Nothing | never a server-state library |
 | Repeated fetching with caching, invalidation, or dependent queries | A server-state library | — |
 | FM payload that is complex, variable, multi-branch, or safety-critical | A runtime schema library, plus generated types | — |
 | Any other FM payload | TypeScript types plus explicit guards in `parseWidgetPayload` | — |
+
+When the React widget uses icons, import named icon components directly from `lucide-react`.
+Do not generate icons manually from SVGs or add another general-purpose icon library; Lucide covers
+standard widget needs. Include `lucide-react` in the proposed stack and obtain approval before
+installing it.
 
 Before naming a specific package, verify its current official documentation, React 19
 compatibility, license, and maintenance status. Do not name a package from memory alone, and never
