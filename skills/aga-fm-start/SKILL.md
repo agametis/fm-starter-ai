@@ -1,6 +1,6 @@
 ---
 name: aga-fm-start
-description: Creates an AI-assisted FileMaker Web Viewer widget project from the Agametis template. Use when a user wants to start, download, or scaffold a new FileMaker Web Viewer widget project.
+description: Creates an AI-assisted FileMaker Web Viewer widget project from the agametis template. Use when a user wants to start, download, or scaffold a new FileMaker Web Viewer widget project.
 license: MIT
 compatibility: Requires network access, Git, Node.js 24+, npm, and an agent that supports the Agent Skills standard.
 ---
@@ -73,14 +73,14 @@ The generated project ships the builder at a fixed path:
 Discovery works through three layers, so the workflow starts on any host:
 
 - Hosts that read `.claude/skills/` register the skill directly and can invoke `/aga-fm-widget`.
-  `.agents/skills` is a symlink to the same directory, which covers Codex, Cline, Warp, Zed, Amp,
-  and Replit.
+  `.agents/skills/` contains a committed copy for Codex, Cline, Warp, Zed, Amp, and Replit.
 - `AGENTS.md` and `CLAUDE.md` in the project root tell any agent to read the canonical file
   before building or changing the widget.
 - As a direct fallback, the user can say:
-  *read `.claude/skills/aga-fm-widget/SKILL.md` and follow it*.
+  _read `.claude/skills/aga-fm-widget/SKILL.md` and follow it_.
 
-If a host does not resolve symlinked skill directories, the fallback sentence still works.
+The two skill trees must contain the same files. `.claude/skills/` is canonical; copy every skill
+change into `.agents/skills/`.
 
 Then:
 
