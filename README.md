@@ -32,13 +32,11 @@ The builder keeps React, TypeScript, and Vite as the foundation. It recommends a
 
 ## How agents find the builder
 
-`.claude/skills/` is the single source for this project's skills. Three layers make it reachable from any agent, so you never have to install anything into the project:
+`.claude/skills/` is the canonical source for this project's skills. Three layers make it reachable from any agent, so you never have to install anything into the project:
 
-- Hosts that read `.claude/skills/` register `aga-fm-widget` directly and offer `/aga-fm-widget`. `.agents/skills` is a **symlink** to the same directory, covering Codex, Cline, Warp, Zed, Amp, and Replit. Because the whole directory is linked, any skill you add appears in both without further work. Edit only the files under `.claude/skills/`.
+- Hosts that read `.claude/skills/` register `aga-fm-widget` directly and offer `/aga-fm-widget`. `.agents/skills/` contains a committed copy for Codex, Cline, Warp, Zed, Amp, and Replit. Keep both trees identical: make skill changes in `.claude/skills/`, then copy them into `.agents/skills/`.
 - `AGENTS.md` and `CLAUDE.md` in the project root tell any agent to read the canonical file before building or changing the widget.
 - If neither applies, say: *read `.claude/skills/aga-fm-widget/SKILL.md` and follow it*. The path always works.
-
-Because `.agents/skills` is a symlink, `git config core.symlinks` must be enabled on Windows. Without it Git writes a plain text file containing the link target and that path stops working — `.claude/skills/` and the fallback sentence are unaffected.
 
 The top-level `skills/aga-fm-start/` is separate. It is the standalone skill installed globally with the `skills` package, as shown in the [Quick start](#quick-start), and it stays outside `.claude/skills/` because it scaffolds new projects rather than building widgets inside one.
 
@@ -185,13 +183,11 @@ React, TypeScript und Vite bleiben immer die Grundlage. Weitere Bibliotheken wer
 
 ## Wie Agenten den Builder finden
 
-`.claude/skills/` ist die einzige Quelle für die Skills dieses Projekts. Drei Ebenen machen sie für jeden Agenten erreichbar, ohne dass im Projekt etwas installiert werden muss:
+`.claude/skills/` ist die maßgebliche Quelle für die Skills dieses Projekts. Drei Ebenen machen sie für jeden Agenten erreichbar, ohne dass im Projekt etwas installiert werden muss:
 
-- Hosts, die `.claude/skills/` lesen, registrieren `aga-fm-widget` direkt und bieten `/aga-fm-widget` an. `.agents/skills` ist ein **Symlink** auf dasselbe Verzeichnis und deckt Codex, Cline, Warp, Zed, Amp und Replit ab. Da das gesamte Verzeichnis verlinkt ist, erscheint jeder neue Skill automatisch in beiden Pfaden. Bearbeite ausschließlich die Dateien unter `.claude/skills/`.
+- Hosts, die `.claude/skills/` lesen, registrieren `aga-fm-widget` direkt und bieten `/aga-fm-widget` an. `.agents/skills/` enthält eine versionierte Kopie für Codex, Cline, Warp, Zed, Amp und Replit. Halte beide Verzeichnisbäume identisch: Ändere Skills zuerst in `.claude/skills/` und kopiere die Änderungen anschließend nach `.agents/skills/`.
 - `AGENTS.md` und `CLAUDE.md` im Projektstamm weisen jeden Agenten an, die maßgebliche Datei zu lesen, bevor er das Widget erstellt oder ändert.
 - Falls beides nicht greift, genügt der Satz: *Lies `.claude/skills/aga-fm-widget/SKILL.md` und folge der Datei.* Der Pfad funktioniert immer.
-
-Da `.agents/skills` ein Symlink ist, muss unter Windows `git config core.symlinks` aktiviert sein. Andernfalls schreibt Git eine einfache Textdatei mit dem Linkziel, und dieser Pfad funktioniert nicht mehr. `.claude/skills/` und der Ersatzsatz bleiben davon unberührt.
 
 Der Skill `skills/aga-fm-start/` auf oberster Ebene ist davon getrennt. Er wird wie im [Schnellstart](#schnellstart) beschrieben global mit dem Paket `skills` installiert und liegt bewusst außerhalb von `.claude/skills/`, weil er neue Projekte erzeugt und nicht Widgets innerhalb eines Projekts baut.
 

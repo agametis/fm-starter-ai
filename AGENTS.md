@@ -14,10 +14,10 @@ The guided builder is an Agent Skill. Its canonical instructions are at:
 Read that file before creating or changing the widget, its data contract, or its FileMaker
 communication. It interviews the user, gets a plan approved, and only then edits files.
 
-`.claude/skills/` is the single source for this project's skills. `.agents/skills` is a symlink to
-it, which is where Codex, Cline, Warp, Zed, Amp, and Replit look. Any skill added under
-`.claude/skills/` therefore appears in both automatically. Edit only the files under
-`.claude/skills/`.
+`.claude/skills/` is the canonical source for this project's skills. `.agents/skills/` contains a
+committed copy for Codex, Cline, Warp, Zed, Amp, and Replit. When changing or adding a skill,
+edit `.claude/skills/` first, then copy the same changes into `.agents/skills/`; both trees must
+remain identical.
 
 The separate top-level `skills/aga-fm-start/` is not part of this project's runtime skills. It is a
 standalone skill published for global installation with the `skills` package, and it scaffolds new
